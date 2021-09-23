@@ -93,11 +93,11 @@ return [
 
         'odbc' => [
             'driver' => 'odbc',
-            'dsn' => 'IRIS',
-            'database' => 'TEST_CRUD',
-            'host' => '127.0.0.1',
-            'username' => '_system',
-            'password' => 'sys'
+            'dsn' => env('DB_DSN'),
+            'database' => env('DB_DATABASE'),
+            'host' => env('DB_HOST', 'localhost'),
+            'username' => env('DB_USERNAME', 'root'),
+            'password' => env('DB_PASSWORD')
         ]
 
     ],
