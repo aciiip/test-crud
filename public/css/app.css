@@ -1,0 +1,27 @@
+body {
+    background-color: whitesmoke;
+}
+
+#drawer {
+    min-width: 320px;
+    background-color: white;
+    padding-top: 55px;
+    min-height: 100vh;
+    transition: margin-left .25s;
+}
+
+#drawer.hide {
+    margin-left: -320px;
+}
+
+#drawer > * {
+    min-width: 320px;
+}
+
+.menu-active {
+    color: dodgerblue;
+}
+
+.menu-active:hover {
+    color: dodgerblue;
+}

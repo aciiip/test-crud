@@ -18,9 +18,15 @@ Route::post('/login/action', 'UserController@loginAction')->name('loginAction');
 Route::get('/logout', 'UserController@logout')->name('logout');
 
 Route::group(['middleware' => ['user_auth']], function () {
+
     Route::get('/', 'HomeController@index')->name('home');
-    Route::get('/create', 'HomeController@create')->name('create');
-    Route::get('/edit/{id}', 'HomeController@edit')->name('edit');
-    Route::post('/action/{id?}', 'HomeController@formAction')->name('formAction');
-    Route::get('/delete/{id?}', 'HomeController@destroy')->name('delete');
+
+    Route::group(['prefix' => 'item'], function () {
+        Route::get('/', 'ItemController@index')->name('item');
+        Route::get('/create', 'ItemController@create')->name('item_create');
+        Route::get('/edit/{id}', 'ItemController@edit')->name('item_edit');
+        Route::post('/action/{id?}', 'ItemController@formAction')->name('item_action');
+        Route::get('/delete/{id?}', 'ItemController@destroy')->name('item_delete');
+    });
+
 });

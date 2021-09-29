@@ -2,36 +2,36 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
 
     public function login ()
     {
-        if (!empty(session('authenticated'))) {
-            return redirect(route('home'));
+        if (Auth::check()) {
+            return redirect()->route('home');
         }
         return view('login.index');
     }
 
     public function loginAction (Request $request)
     {
-        $username = 'admin@rasumi.com';
-        $password = 'Rasumi@2021';
-
         $post = $request->all();
-        if ($post['username'] === $username && $post['password'] === $password) {
-            $request->session()->put('authenticated', time());
-            return redirect(route('home'));
-        }
+        Auth::attempt([
+            'email' => $post['username'],
+            'password' => $post['password']
+        ]);
 
-        $request->session()->flash('error', 'Incorrect Username or Password');
-        return redirect(route('login'));
+        if (Auth::check()) {
+             return redirect()->route('home');
+        }
+        return redirect()->route('login')->with('error', 'Incorrect Username or Password');
     }
 
     public function logout (Request $request)
     {
-        $request->session()->flush();
-        return redirect(route('login'));
+        Auth::logout();
+        return redirect()->route('login');
     }
 }

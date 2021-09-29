@@ -1,32 +1,42 @@
 @extends('layouts.home')
+@section('title', 'Item')
 @section('content')
     <div class="container-fluid">
-        <div class="table-responsive" style="margin-top: 20px;">
-            <table class="table table-bordered" style="width: 100%">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Code</th>
-                    <th>Description</th>
-                    <th>MDCCode</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($items AS $item)
-                    <tr>
-                        <td>{{$item['ID']}}</td>
-                        <td>{{$item['Code']}}</td>
-                        <td>{{$item['Description']}}</td>
-                        <td>{{$item['MDCCode']}}</td>
-                        <td align="center">
-                            <a href="{{route('edit', $item['ID'])}}">Edit</a> |
-                            <a href="#" class="btn-delete" data-id="{{$item['ID']}}">Delete</a>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+        <div class="card mt-3">
+            <div class="card-body">
+                <div>
+                    <h4>
+                        List of ORX Items
+                    </h4>
+                </div>
+                <div class="table-responsive mt-3">
+                    <table class="table table-bordered" style="width: 100%">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Code</th>
+                            <th>Description</th>
+                            <th>MDCCode</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($items AS $item)
+                            <tr>
+                                <td>{{$item['ID']}}</td>
+                                <td>{{$item['Code']}}</td>
+                                <td>{{$item['Description']}}</td>
+                                <td>{{$item['MDCCode']}}</td>
+                                <td align="center">
+                                    <a href="{{route('item_edit', $item['ID'])}}">Edit</a> |
+                                    <a href="#" class="btn-delete" data-id="{{$item['ID']}}">Delete</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
     <div class="modal fade" tabindex="-1" id="delete-modal">
@@ -48,6 +58,7 @@
 @endsection
 
 @section('script')
+    @parent
     <script>
         $(document).ready(function () {
             const modal = new bootstrap.Modal($('#delete-modal'));
@@ -59,7 +70,7 @@
             });
             $('#btn-confirm-delete').click(function () {
                 modal.hide();
-                window.location = '{{route('delete')}}/' + deleteId;
+                window.location = '{{route('item_delete')}}/' + deleteId;
             });
         });
     </script>

@@ -1,4 +1,5 @@
 @extends('layouts.home')
+@section('title', 'Item Form')
 @section('content')
     <div class="container-fluid">
         <div class="card p-4 mt-2">
