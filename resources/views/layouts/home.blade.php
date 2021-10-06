@@ -12,9 +12,9 @@
         'name' => 'item'
     ];
     $menus[] = [
-        'link' => '#',
-        'text' => 'Lorem Ipsum Dolor Sit',
-        'name' => 'lorem'
+        'link' => route('user_transaction'),
+        'text' => 'ORX Transaction',
+        'name' => 'user_transaction'
     ];
     $menus[] = [
         'link' => '#',

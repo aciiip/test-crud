@@ -29,4 +29,9 @@ Route::group(['middleware' => ['user_auth']], function () {
         Route::get('/delete/{id?}', 'ItemController@destroy')->name('item_delete');
     });
 
+    Route::group(['prefix' => 'transaction'], function () {
+        Route::get('/', 'UserTransactionController@index')->name('user_transaction');
+        Route::get('/{id}/print', 'UserTransactionController@print')->name('print_transaction');
+    });
+
 });

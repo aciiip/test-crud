@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0afa8f41f8fc55d0157950e014fcf633",
+    "content-hash": "2f7286e69bda6708830d60bb084603bf",
     "packages": [
         {
             "name": "abram/laravel-odbc",
@@ -851,6 +851,73 @@
                 "source": "https://github.com/guzzle/psr7/tree/2.0.0"
             },
             "time": "2021-06-30T20:03:07+00:00"
+        },
+        {
+            "name": "jeandormehl/laracache",
+            "version": "v1.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jeandormehl/laracache.git",
+                "reference": "ee3c493fb609494ca7f593b105b9cf5108c9bce5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jeandormehl/laracache/zipball/ee3c493fb609494ca7f593b105b9cf5108c9bce5",
+                "reference": "ee3c493fb609494ca7f593b105b9cf5108c9bce5",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^5.0|^6.0|^7.0|^8.0",
+                "illuminate/support": "^5.0|^6.0|^7.0|^8.0",
+                "php": "^7.2|^7.3|^7.4|^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.13|^2.16",
+                "mockery/mockery": "^1.2",
+                "phpunit/phpunit": "^7.0|^8.4|^8.5|^9.0",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "v1.0-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Laracache\\Cache\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laracache\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jean Dormehl",
+                    "email": "jdormehl@gmail.com"
+                }
+            ],
+            "description": "InterSystems Cache support for Laravel 5 using ODBC",
+            "homepage": "https://github.com/jeandormehl/laracache",
+            "keywords": [
+                "cache",
+                "intersystems",
+                "laravel",
+                "laravel5",
+                "odbc",
+                "pdo"
+            ],
+            "support": {
+                "issues": "https://github.com/jeandormehl/laracache/issues",
+                "source": "https://github.com/jeandormehl/laracache/tree/v1.0.6"
+            },
+            "time": "2021-06-23T04:21:42+00:00"
         },
         {
             "name": "laravel/framework",

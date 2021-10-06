@@ -8,7 +8,8 @@ class ItemController extends Controller
 {
     public function index ()
     {
-        $data['items'] = Item::all();
+        $ids = $this->getPrimaries((new Item())->getTable(), 'ID', 1, 100);
+        $data['items'] = Item::whereIn('ID', $ids)->orderBy('ID')->get();
         return view('item.index', $data);
     }
 
