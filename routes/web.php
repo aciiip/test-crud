@@ -32,6 +32,7 @@ Route::group(['middleware' => ['user_auth']], function () {
     Route::group(['prefix' => 'transaction'], function () {
         Route::get('/', 'UserTransactionController@index')->name('user_transaction');
         Route::get('/{id}/print', 'UserTransactionController@print')->name('print_transaction');
+        Route::get('/{id}/download', 'UserTransactionController@download')->name('user_transaction_download');
     });
 
 });

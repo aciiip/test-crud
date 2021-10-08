@@ -14,4 +14,19 @@ class OrderItem extends Model
     {
         return $this->belongsTo(Item::class, 'ItemID', 'ID');
     }
+
+    public function instruction ()
+    {
+        return $this->belongsTo(Instruction::class, 'InstructionID', 'ID');
+    }
+
+    public function frequency ()
+    {
+        return $this->belongsTo(Frequency::class, 'FrequencyID', 'ID');
+    }
+
+    public function duration ()
+    {
+        return $this->belongsTo(Duration::class, 'DurationID', 'ID');
+    }
 }

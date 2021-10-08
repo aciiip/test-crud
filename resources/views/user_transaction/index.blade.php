@@ -19,6 +19,7 @@
                             <th>IC Number</th>
                             <th>Corporate Client</th>
                             <th>Invoice</th>
+                            <th>Print</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -31,7 +32,12 @@
                                 <td>{{$transaction->company->Name}}</td>
                                 <td class="text-center">
                                     <a href="{{route('print_transaction', $transaction->ID)}}" class="text-black" target="_blank">
-                                        <i class="fas fa-print"></i>
+                                        <i class="fas fa-file-invoice"></i>
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <a href="{{route('user_transaction_download', $transaction->ID)}}" class="text-black">
+                                        <i class="fas fa-file-download"></i>
                                     </a>
                                 </td>
                             </tr>

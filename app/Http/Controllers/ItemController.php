@@ -2,14 +2,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Repositories\OdbcRepository;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
+
+    private $odbc;
+
+    public function __construct(OdbcRepository $odbc)
+    {
+        $this->odbc = $odbc;
+    }
+
     public function index ()
     {
-        $ids = $this->getPrimaries((new Item())->getTable(), 'ID', 1, 100);
-        $data['items'] = Item::whereIn('ID', $ids)->orderBy('ID')->get();
+        $data['items'] = $this->odbc
+            ->model(Item::class)
+            ->orderBy('ID')
+            ->limit(1, 50)
+            ->build()
+            ->orderBy('ID')
+            ->get();
         return view('item.index', $data);
     }
 
