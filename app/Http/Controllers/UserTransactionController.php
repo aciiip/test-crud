@@ -64,7 +64,7 @@ class UserTransactionController extends Controller
                 'uom_dosage_code' => $item->UOM,
                 'instruction' => $item->instruction->Description,
                 'frequency' => $item->frequency->Description,
-                'duration' => $item->duration->Description,
+                'duration' => $item->duration->Code,
                 'quantity' => $item->Quantity,
                 'created_at' => now(),
                 'updated_at' => now(),
