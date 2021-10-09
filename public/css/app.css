@@ -3,7 +3,7 @@ body {
 }
 
 #drawer {
-    min-width: 320px;
+    min-width: 280px;
     background-color: white;
     padding-top: 55px;
     min-height: 100vh;
@@ -11,11 +11,11 @@ body {
 }
 
 #drawer.hide {
-    margin-left: -320px;
+    margin-left: -280px;
 }
 
 #drawer > * {
-    min-width: 320px;
+    min-width: 280px;
 }
 
 .menu-active {
