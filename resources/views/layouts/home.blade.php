@@ -48,7 +48,7 @@
                     @endforeach
                 </div>
             </div>
-            <div class="flex-fill" style="padding-top: 55px;">
+            <div class="flex-fill" style="padding-top: 55px; max-width: 100%;">
                 @yield('content')
             </div>
         </div>

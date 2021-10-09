@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Label;
 use App\Models\UserTransaction;
 use App\Repositories\OdbcRepository;
+use Illuminate\Http\Request;
 
 class UserTransactionController extends Controller
 {
@@ -15,22 +16,27 @@ class UserTransactionController extends Controller
         $this->odbc = $odbcRepository;
     }
 
-    public function index ()
+    public function index (Request $request)
     {
-        $transactions = $this->odbc
-            ->model(UserTransaction::class)
-            ->where('Status', null, '!=')
-            ->where('Status', 'PN', '!=')
+        $dnNo = $request->get('dn_no');
+        $transactions = $this->odbc->model(UserTransaction::class);
+        if ($dnNo) {
+            $transactions = $transactions->where('DispensingNoteNo', '%'.$dnNo.'%', 'LIKE');
+        } else {
+            $transactions = $transactions->where('Status', 'PS');
+        }
+        $transactions = $transactions
             ->where('PrescriptionNo', null, '!=')
             ->orderBy('CreatedDate', 'DESC')
-            ->limit(1, 50)
+            ->limit(1, 100)
             ->build()
-            ->with(['patient', 'invoice', 'company'])
+            ->with(['patient', 'invoice', 'company', 'order.items'])
             ->orderBy('CreatedDate', 'DESC')
             ->get();
 
         return view('user_transaction.index', [
-            'transactions' => $transactions
+            'transactions' => $transactions,
+            'dn_no' => $dnNo
         ]);
     }
 

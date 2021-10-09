@@ -76,7 +76,9 @@
                             {{$no}}
                         </td>
                         <td style="text-align: left; border-left: 1px solid black; border-right: 1px solid black;">
-                            {{$item->item->Description}}
+                            <a style="text-decoration: none;" href="{{route('item_edit', $item->item->ID)}}">
+                                {{$item->item->Description}}
+                            </a>
                         </td>
                         <td style="text-align: center; border-left: 1px solid black; border-right: 1px solid black;">
                             {{$item->UOM}}

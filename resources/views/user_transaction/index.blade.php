@@ -4,44 +4,70 @@
     <div class="container-fluid">
         <div class="card mt-3">
             <div class="card-body">
-                <div>
+                <div class="d-flex align-items-center justify-content-between">
                     <h4>
                         List of ORX Transaction
                     </h4>
+                    <div>
+                        <form>
+                            <div class="input-group">
+                                <input autocomplete="off" value="{{$dn_no}}" type="text" name="dn_no" placeholder="Dispensing Note No." class="form-control" />
+                                <button class="btn btn-primary" type="submit">Search</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="table-responsive mt-3">
+                <div class="table-responsive mt-2">
                     <table class="table table-bordered" style="width: 100%">
                         <thead>
                         <tr>
-                            <th>GL No. / AC Code</th>
-                            <th>Prescription No.</th>
-                            <th>Patient Name</th>
-                            <th>IC Number</th>
-                            <th>Corporate Client</th>
-                            <th>Invoice</th>
-                            <th>Print</th>
+                            <th nowrap>GL No. / AC Code</th>
+                            <th nowrap>Prescription No.</th>
+                            <th nowrap>Patient Name</th>
+                            <th nowrap>IC Number</th>
+                            <th nowrap>Corporate Client</th>
+                            <th nowrap>Total Item</th>
+                            <th nowrap>Total Price</th>
+                            <th nowrap>Invoice</th>
+                            <th nowrap>Print</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($transactions AS $transaction)
+                        @if( count($transactions) > 0 )
+                            @foreach($transactions AS $transaction)
+                                @php($totalItem = 0)
+                                @php($totalPrice = 0)
+                                @if ($transaction->order && $transaction->order->items)
+                                    @foreach($transaction->order->items AS $item)
+                                        @php($totalItem += $item->Quantity)
+                                        @php($totalPrice += $item->TotalPrice)
+                                    @endforeach
+                                @endif
+                                <tr>
+                                    <td>{{$transaction->GLNo}}</td>
+                                    <td>{{$transaction->PrescriptionNo}}</td>
+                                    <td>{{$transaction->patient->Name}}</td>
+                                    <td>{{$transaction->patient->ICNo}}</td>
+                                    <td>{{$transaction->company->Name}}</td>
+                                    <td class="text-end">{{$totalItem}}</td>
+                                    <td class="text-end">{{$totalPrice}}</td>
+                                    <td class="text-center">
+                                        <a href="{{route('print_transaction', $transaction->ID)}}" class="text-black" target="_blank">
+                                            <i class="fas fa-file-invoice"></i>
+                                        </a>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{route('user_transaction_download', $transaction->ID)}}" class="text-black">
+                                            <i class="fas fa-file-download"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
                             <tr>
-                                <td>{{$transaction->GLNo}}</td>
-                                <td>{{$transaction->PrescriptionNo}}</td>
-                                <td>{{$transaction->patient->Name}}</td>
-                                <td>{{$transaction->patient->ICNo}}</td>
-                                <td>{{$transaction->company->Name}}</td>
-                                <td class="text-center">
-                                    <a href="{{route('print_transaction', $transaction->ID)}}" class="text-black" target="_blank">
-                                        <i class="fas fa-file-invoice"></i>
-                                    </a>
-                                </td>
-                                <td class="text-center">
-                                    <a href="{{route('user_transaction_download', $transaction->ID)}}" class="text-black">
-                                        <i class="fas fa-file-download"></i>
-                                    </a>
-                                </td>
+                                <td colspan="9" class="text-center">No Data</td>
                             </tr>
-                        @endforeach
+                        @endif
                         </tbody>
                     </table>
                 </div>

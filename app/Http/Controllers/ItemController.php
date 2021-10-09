@@ -20,7 +20,7 @@ class ItemController extends Controller
         $data['items'] = $this->odbc
             ->model(Item::class)
             ->orderBy('ID')
-            ->limit(1, 50)
+            ->limit(1, 100)
             ->build()
             ->orderBy('ID')
             ->get();
