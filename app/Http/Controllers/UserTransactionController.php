@@ -66,12 +66,9 @@ class UserTransactionController extends Controller
                 'patient_name' => $transaction->patient->Name,
                 'order_date' => $transaction->order->OrderDate,
                 'dispensing_note_no' => $transaction->DispensingNoteNo,
-                'dose_quantity' => $item->DoseQuantity,
-                'uom_dosage_code' => $item->UOM,
-                'instruction' => $item->instruction->Description,
-                'frequency' => $item->frequency->Description,
                 'duration' => $item->duration->Code,
                 'quantity' => $item->Quantity,
+                'prescription_instruction' => $item->DoseQuantity.' '.$item->UOM.' '.$item->instruction->Description.' '.$item->frequency->Description,
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
