@@ -1,137 +1,192 @@
-<div style="display: flex; justify-content: center">
-    <div style="max-width: 1080px">
-        <div style="text-align: center">
-            <h2>RASUMI MEDIPHARMA SDN BHD</h2>
-            <div>162-1, JALAN S2 B22, PUSAT DAGANGAN SEREMBAN 2</div>
-            <div>70300 SEREMBAN 2, NEGERI SEMBILAN</div>
-            <div>Tel: 06-602 0343</div>
-            <div>pharmacy@rasumi.com.my</div>
-        </div>
-        <div style="text-align: center; margin-top: 30px;">
-            <h1>TAX INVOICE</h1>
-        </div>
-        <div style="display: flex; justify-content: space-between; margin-top: 30px;">
-            <div>
-                <table>
-                    <tr>
-                        <td>Patient IC</td>
-                        <td>:</td>
-                        <td>{{$transaction->patient->ICNo}}</td>
-                    </tr>
-                    <tr>
-                        <td>DN No.</td>
-                        <td>:</td>
-                        <td>{{$transaction->DispensingNoteNo}}</td>
-                    </tr>
-                    <tr>
-                        <td>Patient Name</td>
-                        <td>:</td>
-                        <td>{{$transaction->patient->Name}}</td>
-                    </tr>
-                </table>
-            </div>
-            <div>
-                <table>
-                    <tr>
-                        <td>Date</td>
-                        <td>:</td>
-                        <td>{{(new \Carbon\Carbon($transaction->invoice->InvoiceDate))->translatedFormat('d/m/Y')}}</td>
-                    </tr>
-                    <tr>
-                        <td>GST No.</td>
-                        <td>:</td>
-                        <td>-</td>
-                    </tr>
-                    <tr>
-                        <td>Tax Invoice No.</td>
-                        <td>:</td>
-                        <td>{{$transaction->invoice->InvoiceNo}}</td>
-                    </tr>
-                </table>
+@extends('layouts.home')
+@section('title', 'Transaction')
+@section('content')
+    <div class="container-fluid">
+        <div class="card mt-3">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between">
+                    <h4>
+                        Transaction
+                    </h4>
+                    <div>
+                        <button class="btn btn-primary" id="btn-print">
+                            <span id="btn-print-loader" class="spinner-border spinner-border-sm d-none"></span>
+                            <i class="fa fa-check d-none" id="btn-print-success"></i>
+                            <span id="btn-print-text">Print</span>
+                        </button>
+                    </div>
+                </div>
+                <hr />
+                <div>
+                    <table class="table table-borderless">
+                        <tr>
+                            <td>Dispensing Note No.</td>
+                            <td>:</td>
+                            <td>{{$dispensing_note_no}}</td>
+                        </tr>
+                        <tr>
+                            <td>Patient Name</td>
+                            <td>:</td>
+                            <td>{{$patient_name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Order Date</td>
+                            <td>:</td>
+                            <td>{{$order_date}}</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
-        <div style="margin-top: 20px;">
-            <table style="width: 100%;" cellspacing="0" cellpadding="6">
-                <thead style="background-color: lightgray;">
-                <tr>
-                    <th style="border: 1px solid black;">No.</th>
-                    <th style="border: 1px solid black;">Item Description</th>
-                    <th style="border: 1px solid black;">UOM</th>
-                    <th style="border: 1px solid black;">GST Code</th>
-                    <th style="border: 1px solid black;">Qty</th>
-                    <th style="border: 1px solid black;">Unit Price (RM)</th>
-                    <th style="border: 1px solid black;">Total Excl. GST (RM)</th>
-                    <th style="border: 1px solid black;">Total GST (RM)</th>
-                    <th style="border: 1px solid black;">Total Incl. GST (RM)</th>
-                </tr>
-                </thead>
-                <tbody>
-                @php($no = 1)
-                @php($totalProviderTotalPrice = 0)
-                @php($totalGSTAmount = 0)
-                @php($totalTotalPrice = 0)
-                @foreach($transaction->order->items AS $item)
-                    <tr>
-                        <td style="text-align: center; border-left: 1px solid black; border-right: 1px solid black;">
-                            {{$no}}
-                        </td>
-                        <td style="text-align: left; border-left: 1px solid black; border-right: 1px solid black;">
-                            <a style="text-decoration: none;" href="{{route('item_edit', $item->item->ID)}}">
-                                {{$item->item->Description}}
-                            </a>
-                        </td>
-                        <td style="text-align: center; border-left: 1px solid black; border-right: 1px solid black;">
-                            {{$item->UOM}}
-                        </td>
-                        <td style="text-align: center; border-left: 1px solid black; border-right: 1px solid black;">
-                            {{$item->GSTRate}}
-                        </td>
-                        <td style="text-align: center; border-left: 1px solid black; border-right: 1px solid black;">
-                            {{$item->Quantity}}
-                        </td>
-                        <td style="text-align: right; border-left: 1px solid black; border-right: 1px solid black;">
-                            {{$item->ProviderPrice}}
-                        </td>
-                        <td style="text-align: right; border-left: 1px solid black; border-right: 1px solid black;">
-                            {{$item->ProviderTotalPrice}}
-                        </td>
-                        <td style="text-align: right; border-left: 1px solid black; border-right: 1px solid black;">
-                            {{$item->GSTAmount}}
-                        </td>
-                        <td style="text-align: right; border-left: 1px solid black; border-right: 1px solid black;">
-                            {{$item->TotalPrice}}
-                        </td>
-                    </tr>
-                    @php($no++)
-                    @php($totalProviderTotalPrice += $item->ProviderTotalPrice)
-                    @php($totalGSTAmount += $item->GSTAmount)
-                    @php($totalTotalPrice += $item->TotalPrice)
-                @endforeach
-                <tr>
-                    <td style="text-align: right; border: 1px solid black" colspan="6">
-                        <strong>TOTAL AMOUNT</strong>
-                    </td>
-                    <td style="text-align: right; border: 1px solid black">
-                        {{$totalProviderTotalPrice}}
-                    </td>
-                    <td style="text-align: right; border: 1px solid black">
-                        {{$totalGSTAmount}}
-                    </td>
-                    <td style="text-align: right; border: 1px solid black">
-                        {{$totalTotalPrice}}
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="6"></td>
-                    <td colspan="2" style="text-align: right; border: 1px solid black;">
-                        <strong>TOTAL PAYABLE<br/> INCL. GST</strong>
-                    </td>
-                    <td style="text-align: right; border: 1px solid black;">
-                        {{$totalTotalPrice}}
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+        <div class="card mt-3">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between">
+                    <h4>
+                        Transaction Item
+                    </h4>
+                </div>
+                <div class="table-responsive mt-2">
+                    <table class="table table-bordered" style="width: 100%">
+                        <thead>
+                        <tr>
+                            <th nowrap>No</th>
+                            <th nowrap>Description</th>
+                            <th nowrap>Duration</th>
+                            <th nowrap>Quantity</th>
+                            <th nowrap>Instruction</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @php($no = 1)
+                        @foreach($labels AS $index => $label)
+                            <tr>
+                                <td>{{$no}}</td>
+                                <td>{{$label['item_description']}}</td>
+                                <td>{{$label['duration']}}</td>
+                                <td class="text-end">{{$label['quantity']}}</td>
+                                <td class="d-flex justify-content-between gap-3">
+                                    <span id="prescription-instruction-{{$index}}">
+                                        {{$label['prescription_instruction']}}
+                                    </span>
+                                    <a
+                                        href="#"
+                                        class="edit_instruction"
+                                        data-index="{{$index}}">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            @php($no++)
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+    <!-- Modal -->
+    <div class="modal fade" id="instruction-modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Instruction</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="modal-instruction-index">
+                    <input type="text" class="form-control" id="modal-instruction-instruction">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="modal-instruction-save">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Toast -->
+    <div
+        style="z-index: 2; top: 70px; right: 10px;"
+        class="toast align-items-center text-white bg-danger border-0 position-fixed"
+        id="toast-error"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                Failed to print transaction
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+@endsection
+@section('script')
+    @parent
+    <script>
+        $(document).ready(function () {
+            let data = [];
+
+            @foreach($labels AS $index => $label)
+                data[{{$index}}] = {
+                    patient_name: "{{$patient_name}}",
+                    order_date: "{{$order_date}}",
+                    dispensing_note_no: "{{$dispensing_note_no}}",
+                    item_description: '{{$label['item_description']}}',
+                    duration: "{{$label['duration']}}",
+                    quantity: "{{$label['quantity']}}",
+                    prescription_instruction: "{{$label['prescription_instruction']}}",
+                };
+            @endforeach
+
+            const modal = new bootstrap.Modal($('#instruction-modal'));
+            document.getElementById('instruction-modal').addEventListener('shown.bs.modal', function () {
+                $('#modal-instruction-instruction').focus();
+            });
+
+            $('.edit_instruction').click(function (e) {
+                e.preventDefault();
+                const index = $(this).data('index');
+                const instruction = $('#prescription-instruction-' + index).text().trim();
+                modal.show();
+                $('#modal-instruction-index').val(index);
+                $('#modal-instruction-instruction').val(instruction);
+            });
+
+            $('#modal-instruction-save').click(function () {
+                const index = $('#modal-instruction-index').val();
+                const instruction = $('#modal-instruction-instruction').val();
+                data[index].prescription_instruction = instruction;
+                $('#prescription-instruction-' + index).text(instruction);
+                modal.hide();
+            });
+
+            const toast = new bootstrap.Toast($('#toast-error'));
+
+            $('#btn-print').click(function () {
+                $('#btn-print').attr('disabled', 'disabled');
+                $('#btn-print-loader').removeClass('d-none');
+                $('#btn-print-text').addClass('d-none');
+                $.post('{{route('print_confirm_transaction')}}', {
+                    "_token": "{{ csrf_token() }}",
+                    'data': data
+                }).then(response => {
+                    if (response === '1') {
+                        $('#btn-print-loader').addClass('d-none');
+                        $('#btn-print-success').removeClass('d-none');
+                        window.location.href = '{{route('user_transaction')}}';
+                    } else {
+                        $('#btn-print').removeAttr('disabled');
+                        $('#btn-print-text').removeClass('d-none');
+                        $('#btn-print-success').addClass('d-none');
+                        $('#btn-print-loader').addClass('d-none');
+                    }
+                }).catch(() => {
+                    toast.show();
+                    $('#btn-print').removeAttr('disabled');
+                    $('#btn-print-text').removeClass('d-none');
+                    $('#btn-print-success').addClass('d-none');
+                    $('#btn-print-loader').addClass('d-none');
+                });
+            });
+        })
+    </script>
+@endsection

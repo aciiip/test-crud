@@ -4,22 +4,26 @@
     $menus[] = [
         'link' => route('home'),
         'text' => 'Home',
-        'name' => 'home'
+        'name' => 'home',
+        'icon' => 'home'
     ];
     $menus[] = [
         'link' => route('item'),
-        'text' => 'ORX Item',
-        'name' => 'item'
+        'text' => 'Item',
+        'name' => 'item',
+        'icon' => 'boxes'
     ];
     $menus[] = [
         'link' => route('user_transaction'),
-        'text' => 'ORX Transaction',
-        'name' => 'user_transaction'
+        'text' => 'Transaction',
+        'name' => 'user_transaction',
+        'icon' => 'shopping-cart'
     ];
     $menus[] = [
-        'link' => '#',
-        'text' => 'Lorem Ipsum Dolor Sit',
-        'name' => 'lorem'
+        'link' => route('inventory'),
+        'text' => 'Inventory',
+        'name' => 'inventory',
+        'icon' => 'box-open'
     ];
 @endphp
 
@@ -44,7 +48,10 @@
             <div id="drawer">
                 <div class="list-group position-fixed" style="border-radius: 0;">
                     @foreach($menus AS $menu)
-                        <a href="{{$menu['link']}}" class="list-group-item list-group-item-action {{(request()->route()->getName() === $menu['name']) ? 'menu-active' : ''}}">{{$menu['text']}}</a>
+                        <a href="{{$menu['link']}}" class="list-group-item list-group-item-action {{(request()->route()->getName() === $menu['name']) ? 'menu-active' : ''}}">
+                            <i class="fa fa-{{$menu['icon']}}"></i>
+                            <span class="mx-1">{{$menu['text']}}</span>
+                        </a>
                     @endforeach
                 </div>
             </div>

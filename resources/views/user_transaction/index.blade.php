@@ -38,8 +38,8 @@
                                 @php($totalItem = 0)
                                 @php($totalPrice = 0)
                                 @if ($transaction->order && $transaction->order->items)
+                                    @php($totalItem = count($transaction->order->items))
                                     @foreach($transaction->order->items AS $item)
-                                        @php($totalItem += $item->Quantity)
                                         @php($totalPrice += $item->TotalPrice)
                                     @endforeach
                                 @endif
@@ -52,12 +52,12 @@
                                     <td class="text-end">{{$totalItem}}</td>
                                     <td class="text-end">{{$totalPrice}}</td>
                                     <td class="text-center">
-                                        <a href="{{route('print_transaction', $transaction->ID)}}" class="text-black" target="_blank">
+                                        <a href="{{route('detail_transaction', $transaction->ID)}}" class="text-black" target="_blank">
                                             <i class="fas fa-file-invoice"></i>
                                         </a>
                                     </td>
                                     <td class="text-center">
-                                        <a href="{{route('user_transaction_download', $transaction->ID)}}" class="text-black">
+                                        <a href="{{route('print_transaction', $transaction->ID)}}" class="text-black">
                                             <i class="fas fa-file-download"></i>
                                         </a>
                                     </td>

@@ -40,15 +40,15 @@ class UserTransactionController extends Controller
         ]);
     }
 
-    public function print($id)
+    public function detail($id)
     {
         $transaction = UserTransaction::where('ID', $id)->with(['patient', 'invoice', 'order.items.item'])->get();
-        return view('user_transaction.print', [
+        return view('user_transaction.detail', [
             'transaction' => $transaction[0]
         ]);
     }
 
-    public function download($id)
+    public function print($id)
     {
         $transactions = UserTransaction::where('ID', $id)->with([
             'patient',
@@ -68,12 +68,28 @@ class UserTransactionController extends Controller
                 'dispensing_note_no' => $transaction->DispensingNoteNo,
                 'duration' => $item->duration->Code,
                 'quantity' => $item->Quantity,
-                'prescription_instruction' => $item->DoseQuantity.' '.$item->UOM.' '.$item->instruction->Description.' '.$item->frequency->Description,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'prescription_instruction' => $item->DoseQuantity.' '.$item->UOM.' '.$item->instruction->Description.' '.$item->frequency->Description
             ];
         }
-        Label::insert($data);
-        return redirect()->route('user_transaction');
+
+        return view('user_transaction.print', [
+            'patient_name' => $transaction->patient->Name,
+            'order_date' => $transaction->order->OrderDate,
+            'dispensing_note_no' => $transaction->DispensingNoteNo,
+            'labels' => $data,
+        ]);
+    }
+
+    public function printConfirm (Request $request)
+    {
+        $posts = $request->get('data');
+        $data = [];
+        foreach ($posts AS $post) {
+            $temp = $post;
+            $temp['created_at'] = now();
+            $temp['updated_at'] = now();
+            $data[] = $temp;
+        }
+        return Label::insert($data);
     }
 }

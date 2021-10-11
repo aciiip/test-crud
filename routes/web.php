@@ -31,8 +31,13 @@ Route::group(['middleware' => ['user_auth']], function () {
 
     Route::group(['prefix' => 'transaction'], function () {
         Route::get('/', 'UserTransactionController@index')->name('user_transaction');
+        Route::get('/{id}/detail', 'UserTransactionController@detail')->name('detail_transaction');
         Route::get('/{id}/print', 'UserTransactionController@print')->name('print_transaction');
-        Route::get('/{id}/download', 'UserTransactionController@download')->name('user_transaction_download');
+        Route::post('/print_confirm', 'UserTransactionController@printConfirm')->name('print_confirm_transaction');
+    });
+
+    Route::group(['prefix' => 'inventory'], function () {
+        Route::get('/', 'InventoryController@index')->name('inventory');
     });
 
 });
