@@ -40,4 +40,9 @@ Route::group(['middleware' => ['user_auth']], function () {
         Route::get('/', 'InventoryController@index')->name('inventory');
     });
 
+    Route::group(['prefix' => 'purchase'], function () {
+        Route::get('/{itemId}/create', 'PurchaseController@create')->name('create_purchase');
+        Route::post('/insert', 'PurchaseController@insert')->name('insert_purchase');
+    });
+
 });

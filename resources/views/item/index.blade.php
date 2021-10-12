@@ -27,9 +27,10 @@
                                 <td>{{$item['Code']}}</td>
                                 <td>{{$item['Description']}}</td>
                                 <td>{{$item['MDCCode']}}</td>
-                                <td align="center">
-                                    <a href="{{route('item_edit', $item['ID'])}}">Edit</a> |
-                                    <a href="#" class="btn-delete" data-id="{{$item['ID']}}">Delete</a>
+                                <td>
+                                    <a class="btn btn-outline-primary btn-sm" href="{{route('create_purchase', $item['ID'])}}">Create Purchase</a>
+                                    <a class="btn btn-outline-success btn-sm" href="{{route('item_edit', $item['ID'])}}">Edit</a>
+                                    <a class="btn btn-outline-danger btn-delete btn-sm" href="#" data-id="{{$item['ID']}}">Delete</a>
                                 </td>
                             </tr>
                         @endforeach

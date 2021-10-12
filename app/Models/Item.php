@@ -14,4 +14,14 @@ class Item extends Model
     {
         return $this->belongsTo(Uom::class, 'UOMID', 'ID');
     }
+
+    public function purchase_uom ()
+    {
+        return $this->belongsTo(Uom::class, 'PurchUOMID', 'ID');
+    }
+
+    public function price ()
+    {
+        return $this->hasOne(Price::class, 'ItemID', 'ID');
+    }
 }
