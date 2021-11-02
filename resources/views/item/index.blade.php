@@ -17,6 +17,8 @@
                             <th>Code</th>
                             <th>Description</th>
                             <th>MDCCode</th>
+                            <th>Current Stock</th>
+                            <th>Stock Level</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -27,6 +29,8 @@
                                 <td>{{$item['Code']}}</td>
                                 <td>{{$item['Description']}}</td>
                                 <td>{{$item['MDCCode']}}</td>
+                                <td></td>
+                                <td></td>
                                 <td>
                                     <a class="btn btn-outline-primary btn-sm" href="{{route('create_purchase', $item['ID'])}}">Create Purchase</a>
                                     <a class="btn btn-outline-success btn-sm" href="{{route('item_edit', $item['ID'])}}">Edit</a>
