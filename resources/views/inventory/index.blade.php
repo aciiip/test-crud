@@ -17,9 +17,9 @@
                             <th>Transaction Type</th>
                             <th>Date</th>
                             <th>Reference No.</th>
-                            <th>Unit Price</th>
+                            <th>Unit Price (RM)</th>
                             <th>Quantity</th>
-                            <th>Total Price</th>
+                            <th>Total Price (RM)</th>
                         </tr>
                         </thead>
                         <tbody>

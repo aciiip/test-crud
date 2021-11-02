@@ -29,10 +29,10 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Unit Price</td>
+                            <td>Unit Price (RM)</td>
                             <td>:</td>
                             <td>
-                                <input class="form-control" name="unit_price" id="unit_price" readonly value="{{$item->price->Amount}}" />
+                                <input class="form-control" name="unit_price" id="unit_price" readonly value="{{number_format($item->price->Amount, 2)}}" />
                             </td>
                         </tr>
                         <tr>
@@ -50,10 +50,10 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Total Price</td>
+                            <td>Total Price (RM)</td>
                             <td>:</td>
                             <td>
-                                <input class="form-control" id="total_price" readonly value="0" />
+                                <input class="form-control" id="total_price" readonly value="0.00" />
                             </td>
                         </tr>
                         {{--
@@ -91,7 +91,7 @@
                 if (isNaN(total)) {
                     total = 0;
                 }
-                $('#total_price').val(total);
+                $('#total_price').val(total.toFixed(2));
             });
         });
     </script>

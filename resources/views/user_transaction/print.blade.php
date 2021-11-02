@@ -51,8 +51,8 @@
                         <tr>
                             <th nowrap>No</th>
                             <th nowrap>Description</th>
-                            <th nowrap>Duration</th>
-                            <th nowrap>Quantity</th>
+                            <th nowrap class="text-center">Duration</th>
+                            <th nowrap class="text-center">Quantity</th>
                             <th nowrap>Instruction</th>
                         </tr>
                         </thead>
@@ -62,8 +62,8 @@
                             <tr>
                                 <td>{{$no}}</td>
                                 <td>{{$label['item_description']}}</td>
-                                <td>{{$label['duration']}}</td>
-                                <td class="text-end">{{$label['quantity']}}</td>
+                                <td class="text-center">{{$label['duration']}}</td>
+                                <td class="text-center">{{$label['quantity']}}</td>
                                 <td class="d-flex justify-content-between gap-3">
                                     <span id="prescription-instruction-{{$index}}">
                                         {{$label['prescription_instruction']}}

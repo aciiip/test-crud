@@ -88,16 +88,16 @@
                             {{$item->Quantity}}
                         </td>
                         <td style="text-align: right; border-left: 1px solid black; border-right: 1px solid black;">
-                            {{$item->ProviderPrice}}
+                            {{number_format($item->ProviderPrice, 2)}}
                         </td>
                         <td style="text-align: right; border-left: 1px solid black; border-right: 1px solid black;">
-                            {{$item->ProviderTotalPrice}}
+                            {{number_format($item->ProviderTotalPrice, 2)}}
                         </td>
                         <td style="text-align: right; border-left: 1px solid black; border-right: 1px solid black;">
-                            {{$item->GSTAmount}}
+                            {{number_format($item->GSTAmount, 2)}}
                         </td>
                         <td style="text-align: right; border-left: 1px solid black; border-right: 1px solid black;">
-                            {{$item->TotalPrice}}
+                            {{number_format($item->TotalPrice, 2)}}
                         </td>
                     </tr>
                     @php($no++)
@@ -110,13 +110,13 @@
                         <strong>TOTAL AMOUNT</strong>
                     </td>
                     <td style="text-align: right; border: 1px solid black">
-                        {{$totalProviderTotalPrice}}
+                        {{number_format($totalProviderTotalPrice, 2)}}
                     </td>
                     <td style="text-align: right; border: 1px solid black">
-                        {{$totalGSTAmount}}
+                        {{number_format($totalGSTAmount, 2)}}
                     </td>
                     <td style="text-align: right; border: 1px solid black">
-                        {{$totalTotalPrice}}
+                        {{number_format($totalTotalPrice, 2)}}
                     </td>
                 </tr>
                 <tr>
@@ -125,7 +125,7 @@
                         <strong>TOTAL PAYABLE<br/> INCL. GST</strong>
                     </td>
                     <td style="text-align: right; border: 1px solid black;">
-                        {{$totalTotalPrice}}
+                        {{number_format($totalTotalPrice, 2)}}
                     </td>
                 </tr>
                 </tbody>

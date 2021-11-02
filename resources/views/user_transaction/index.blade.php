@@ -27,7 +27,7 @@
                             <th nowrap>IC Number</th>
                             <th nowrap>Corporate Client</th>
                             <th nowrap>Total Item</th>
-                            <th nowrap>Total Price</th>
+                            <th nowrap>Total Price (RM)</th>
                             <th nowrap>Invoice</th>
                             <th nowrap>Print</th>
                         </tr>
@@ -49,8 +49,8 @@
                                     <td>{{$transaction->patient->Name}}</td>
                                     <td>{{$transaction->patient->ICNo}}</td>
                                     <td>{{$transaction->company->Name}}</td>
-                                    <td class="text-end">{{$totalItem}}</td>
-                                    <td class="text-end">{{$totalPrice}}</td>
+                                    <td class="text-center">{{$totalItem}}</td>
+                                    <td class="text-end">{{number_format($totalPrice, 2)}}</td>
                                     <td class="text-center">
                                         <a href="{{route('detail_transaction', $transaction->ID)}}" class="text-black" target="_blank">
                                             <i class="fas fa-file-invoice"></i>
